@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/merchants")
@@ -29,8 +31,8 @@ public class MerchantController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<Merchant> saveMerchant(@RequestBody Merchant merchant) {
-		return merchantService.saveMerchant(merchant);
+	public ResponseEntity<Merchant> saveMerchant(@RequestBody Merchant merchant, HttpServletRequest request) {
+		return merchantService.saveMerchant(merchant, request);
 	}
 
 	@PutMapping
@@ -64,12 +66,16 @@ public class MerchantController {
 	public ResponseEntity<ResponseStructure<List<Merchant>>> findByName(@PathVariable String name) {
 		return merchantService.findByName(name);
 	}
-	
+
 	@PostMapping("/verify-by-email")
 	public ResponseEntity<ResponseStructure<Merchant>> verifyMerchant(@RequestParam String email,
 			@RequestParam String password) {
 		return merchantService.verifyMerchant(email, password);
 	}
 
+	@GetMapping("/activate")
+	public ResponseEntity<ResponseStructure<String>> activate(@RequestParam String token) {
+		return merchantService.activate(token);
+	}
 
 }

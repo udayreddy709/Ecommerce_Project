@@ -2,7 +2,6 @@ package org.jsp.ecommerceapp.repository;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.jsp.ecommerceapp.model.Merchant;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +17,6 @@ public interface MerchantRepository extends JpaRepository<Merchant, Integer> {
 
 	@Query("select m from Merchant m where m.name=?1")
 	public List<Merchant> findByName(String name);
+	
+	public Optional<Merchant> findByToken(String token);
 }

@@ -8,19 +8,28 @@ import org.jsp.ecommerceapp.dto.ResponseStructure;
 import org.jsp.ecommerceapp.exception.IdNotFoundException;
 import org.jsp.ecommerceapp.exception.InvalidCredentialsException;
 import org.jsp.ecommerceapp.model.Merchant;
+import org.jsp.ecommerceapp.util.AccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class MerchantService {
 	@Autowired
 	private MerchantDao merchantDao;
+	@Autowired
+	private ECommerceAppMailService emailservice;
 
-	public ResponseEntity<Merchant> saveMerchant(Merchant merchant) {
+	public ResponseEntity<Merchant> saveMerchant(Merchant merchant, HttpServletRequest request ) {
 		ResponseStructure<Merchant> structure = new ResponseStructure<>();
-		structure.setMessage("merchant saved");
+		merchant.setStatus(AccountStatus.IN_ACTIVE.toString());
+		merchant.setToken(RandomString.make(45));
+		String message = emailservice.sendWelcomeMail(merchant, request);
+		structure.setMessage("merchant saved"+ message);
 		structure.setBody(merchantDao.saveMerchant(merchant));
 		structure.setStatusCode(HttpStatus.CREATED.value());
 		return new ResponseEntity<Merchant>(HttpStatus.CREATED);
@@ -117,6 +126,22 @@ public class MerchantService {
 			return new ResponseEntity<ResponseStructure<Merchant>>(structure, HttpStatus.OK);
 		}
 		throw new InvalidCredentialsException("invalid email or password");
+	}
+	
+	public ResponseEntity<ResponseStructure<String>> activate (String token){
+		Optional<Merchant> recMerchant = merchantDao.findByToken(token);
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		if(recMerchant.isPresent()) {
+			Merchant merchant = recMerchant.get();
+			merchant.setStatus(AccountStatus.ACTIVE.toString());
+			merchant.setToken(null);
+			merchantDao.saveMerchant(merchant);
+			structure.setBody("Merchant Found");
+			structure.setMessage("Account Verified And Activated");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.ACCEPTED);
+		}
+		throw new InvalidCredentialsException("InvalidUrl");
 	}
 
 }

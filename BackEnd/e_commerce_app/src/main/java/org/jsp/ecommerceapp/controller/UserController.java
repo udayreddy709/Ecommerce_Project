@@ -3,6 +3,7 @@ package org.jsp.ecommerceapp.controller;
 import java.util.List;
 
 import org.jsp.ecommerceapp.dto.ResponseStructure;
+import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.model.User;
 import org.jsp.ecommerceapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
- @Autowired
+	@Autowired
 	private UserService userService;
- 
- @PostMapping
+
+	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<User> saveUser(@RequestBody User user){
+	public ResponseEntity<User> saveUser(@RequestBody User user) {
 		return userService.saveUser(user);
 	}
+
 	@PutMapping
 	public ResponseEntity<ResponseStructure<User>> updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
@@ -62,5 +64,11 @@ public class UserController {
 	@GetMapping("/find-by-name/{name}")
 	public ResponseEntity<ResponseStructure<List<User>>> findByName(@PathVariable String name) {
 		return userService.findByName(name);
+	}
+
+	@PostMapping("/verify-by-email")
+	public ResponseEntity<ResponseStructure<User>> verifyUser(@RequestParam String email,
+			@RequestParam String password) {
+		return userService.verifyUser(email, password);
 	}
 }
