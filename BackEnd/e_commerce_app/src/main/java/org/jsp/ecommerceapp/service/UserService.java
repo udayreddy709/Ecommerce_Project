@@ -7,6 +7,7 @@ import org.jsp.ecommerceapp.dao.UserDao;
 import org.jsp.ecommerceapp.dto.ResponseStructure;
 import org.jsp.ecommerceapp.exception.IdNotFoundException;
 import org.jsp.ecommerceapp.exception.InvalidCredentialsException;
+import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,5 +109,18 @@ public class UserService {
 		structure.setStatusCode(HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<ResponseStructure<List<User>>>(structure, HttpStatus.NOT_FOUND);
 	}
+	
+	public ResponseEntity<ResponseStructure<User>> verifyUser(String email, String password) {
+		Optional<User> recUser = userDao.verify(email, password);
+		ResponseStructure<User> structure = new ResponseStructure<>();
+		if (recUser.isPresent()) {
+			structure.setMessage("Verification Succesfull");
+			structure.setBody(recUser.get());
+			structure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
+		}
+		throw new InvalidCredentialsException("invalid email or password");
+	}
+	
 
 }

@@ -26,4 +26,5 @@ public class Merchant {
 	@Column(nullable = false)
 	private String password;
 	private String status;
+	private String token;
 }

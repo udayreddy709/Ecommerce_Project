@@ -3,7 +3,9 @@ package org.jsp.ecommerceapp.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.model.User;
+import org.jsp.ecommerceapp.repository.MerchantRepository;
 import org.jsp.ecommerceapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,6 +43,10 @@ public class UserDao {
 
 	public Optional<User> verify(long phone, String password) {
 		return userRepository.verify(phone, password);
+	}
+	
+	public Optional<User> verify(String email, String password) {
+		return userRepository.verify(email, password);
 	}
 
 }
