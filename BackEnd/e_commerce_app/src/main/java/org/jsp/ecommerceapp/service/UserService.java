@@ -1,13 +1,13 @@
 package org.jsp.ecommerceapp.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.jsp.ecommerceapp.dao.UserDao;
 import org.jsp.ecommerceapp.dto.ResponseStructure;
 import org.jsp.ecommerceapp.exception.IdNotFoundException;
 import org.jsp.ecommerceapp.exception.InvalidCredentialsException;
-import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

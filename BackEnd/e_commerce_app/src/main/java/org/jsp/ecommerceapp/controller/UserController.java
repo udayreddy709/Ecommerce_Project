@@ -2,8 +2,8 @@ package org.jsp.ecommerceapp.controller;
 
 import java.util.List;
 
+
 import org.jsp.ecommerceapp.dto.ResponseStructure;
-import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.model.User;
 import org.jsp.ecommerceapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
