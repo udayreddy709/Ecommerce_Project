@@ -1,13 +1,14 @@
 package org.jsp.ecommerceapp.exception;
 
-public class InvalidCredentialsException  extends RuntimeException{
-
+public class MerchantNotFoundException extends RuntimeException{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public InvalidCredentialsException(String message) {
+	public MerchantNotFoundException(String message) {
 		super(message);
 	}
+
 }
