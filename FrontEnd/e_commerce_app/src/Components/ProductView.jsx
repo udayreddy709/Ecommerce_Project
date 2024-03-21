@@ -5,7 +5,7 @@ import '../Styles/ProductView.css'
 function ProductView() {
   let [item, setitem] = useState([])
   let admin = JSON.parse(localStorage.getItem("Merchant"))
-
+  
   useEffect(() => {
     axios.get(`http://localhost:8080/products/${admin.id}`)
       .then((res) => {
@@ -16,6 +16,8 @@ function ProductView() {
         console.log(err);
       })
   }) //dependency has been removed
+
+
   let searchBybrand = (brand) => {
     axios.get(`http://localhost:8080/products/find-by-brand/${brand}`)
       .then((res) => {
@@ -29,18 +31,18 @@ function ProductView() {
 
   let searchByCategory = (category) => {
     axios.get(`http://localhost:8080/products/find-by-category/${category}`)
-    .then((res) => {
-      console.log(res.data.body);
-      setitem(res.data.body)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}
+      .then((res) => {
+        console.log(res.data.body);
+        setitem(res.data.body)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
   return (
-
     <div className='disp'>
-
       {item.map((x) => {
         return (
           <div className="search">

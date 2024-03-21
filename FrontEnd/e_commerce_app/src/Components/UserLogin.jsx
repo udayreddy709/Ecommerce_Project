@@ -13,7 +13,8 @@ const UserLogin = () => {
     axios.post(`http://localhost:8080/users/verify-by-email?email=${email}&password=${password}`)
     .then((res)=>{
       navigate('/userhomepagee')
-      console.log(res.data);
+      localStorage.setItem("User",JSON.stringify(res.data.body))
+      console.log(res.data.body);
       alert("login successfull")
     })
     .catch((err)=>{
