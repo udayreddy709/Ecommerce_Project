@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  background-color:  cadetblue;
+  padding: 0px, 50px;
+}
+
+.navbar h1{
+  color: brown;
+}
+
+.navbar span{
+  color: beige;
+}
+
+.navbar a{
+  color: black;
+  text-decoration: none;
+}
+
+.option a {
+    margin: 0px 30px;
+}

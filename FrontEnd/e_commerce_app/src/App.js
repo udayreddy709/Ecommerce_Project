@@ -21,7 +21,7 @@ function App() {
           <Route path='/user' element={<UserLogin />} />
           <Route path='/merchantsignup' element={<MerchantSignUp />} />
           <Route path='/merchanthomePagee/*' element={<Protect Child={MerchantHomePagee}/>} />
-          <Route path='/userhomepagee' element={<UserHomePage/>}/>
+          <Route path='/userhomepagee/*' element={<Protect Child={UserHomePage}/>}/>
           <Route path='/usersignup' element={<UserSignUp/>}/>
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import ProductView from "./ProductView"
 import MerchantNavBar from "./MerchantNavBar"
-import UpdateMerchant from "./UpdateMerchant"
+import UpdateMerchant from "./UpdateUser"
 import AddProducts from "./AddProducts"
 
 const MerchantHomePagee = () => {

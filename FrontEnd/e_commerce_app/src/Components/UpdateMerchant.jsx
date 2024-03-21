@@ -1,47 +1,57 @@
-// import axios from "axios"
-import { useState } from "react"
-import "../Styles/UserUpdate.css"
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
+import '../Styles/UpdateMerchant.css'
+function UpdateMerchant() {
+  let [name, setname] = useState("")
+  let [email, setemail] = useState("")
+  let [gst_number, setgst] = useState("")
+  let [phone, setphone] = useState("")
+  let [password, setpassword] = useState("")
+  let [id, setid] = useState("")
+  let data = { name, email, gst_number, phone, password, id }
 
-const UpdateMerchant = () => {
-  let [name, setName] = useState("")
-  let [email, setEmail] = useState("")
-  let [gender, setGender] = useState("")
-  let [password, setPassword] = useState("")
-  let [phone, setPhone] = useState("")
-  let [age, setAge] = useState("")
+  let merchant = JSON.parse(localStorage.getItem("Merchant"))
+
+  useEffect(() => {
+    setname(merchant.name)
+    setphone(merchant.phone)
+    setgst(merchant.gst_number)
+    setemail(merchant.email)
+    setpassword(merchant.password)
+    setid(merchant.id)
+  }, [])
 
 
-  // let data = { name, email, gender, phone, password, age, }
 
-  // let addMerchant = (e) => {
-  //   e.preventDefault();
-  //   axios.post("http://localhost:8080/users", data)
-  //     .then((res) => {
-  //       console.log(res);
-  //       alert("Data Added Successfully")
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       alert("Data Not Found")
-  //     })
-  // }
+  let updateData = (e) => {
+    e.preventDefault();
+    axios.put(`http://localhost:8080/merchants`, data)
+      .then((res) => {
+        console.log(res);
+        alert("Data Edited succesfull")
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Data Not Found")
+      })
+  }
   return (
-    <div className="userupdate">
-      {/* <h3>MerchantSignup</h3> */}
-      <form  action="">
+    <div className='merchantedit'>
+      <form onSubmit={updateData} action="">
+      <label htmlFor="">Id</label>
+        <input readOnly required value={id} onChange={(e) => { setid(e.target.value) }} type="text" placeholder="Enter the Name" />
         <label htmlFor="">Name</label>
-        <input value={name} onChange={(e) => { setName(e.target.value) }} type="text" placeholder="Enter the Name" required />
+        <input required value={name} onChange={(e) => { setname(e.target.value) }} type="text" placeholder="Enter the Name" />
+        <label htmlFor="">GST_number</label>
+        <input required type="text" value={gst_number} onChange={(e) => { setgst(e.target.value) }} placeholder="Enter the GST " />
         <label htmlFor="">Email</label>
-        <input value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" placeholder="Enter the Email" required />
-        <label htmlFor="">Gender</label>
-        <input value={gender} onChange={(e) => { setGender(e.target.value) }} type="text" placeholder="Enter the Gender" required />
-        <label htmlFor="">Phone</label>
-        <input value={phone} onChange={(e) => { setPhone(e.target.value) }} type="tel" pattern="[0-9]{10}" placeholder="Enter the Phone No" required />
+        <input required type="email" value={email} onChange={(e) => { setemail(e.target.value) }} placeholder="Enter the Email" />
+        <label htmlFor="">Phone No</label>
+        <input required type="tel" value={phone} onChange={(e) => { setphone(e.target.value) }} pattern="[0-9]{10}" placeholder="Enter the Phone" />
         <label htmlFor="">Password</label>
-        <input value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder="Enter the Password" required />
-        <label htmlFor="">Age</label>
-        <input value={age} onChange={(e) => { setAge(e.target.value) }} type="number" placeholder="Enter the Age" required />        
-        <button className="btn btn-outline-info">Submit</button>
+        <input required type="text" value={password} onChange={(e) => { setpassword(e.target.value) }} placeholder="Enter the Password" />
+        <button >Submit</button>
       </form>
     </div>
   )
