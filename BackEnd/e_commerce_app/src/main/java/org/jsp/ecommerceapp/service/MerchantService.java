@@ -7,6 +7,7 @@ import org.jsp.ecommerceapp.dao.MerchantDao;
 import org.jsp.ecommerceapp.dto.ResponseStructure;
 import org.jsp.ecommerceapp.exception.IdNotFoundException;
 import org.jsp.ecommerceapp.exception.InvalidCredentialsException;
+import org.jsp.ecommerceapp.exception.MerchantNotFoundException;
 import org.jsp.ecommerceapp.model.Merchant;
 import org.jsp.ecommerceapp.util.AccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,16 +118,21 @@ public class MerchantService {
 	}
 	
 	public ResponseEntity<ResponseStructure<Merchant>> verifyMerchant(String email, String password) {
-		Optional<Merchant> recMerchant = merchantDao.verify(email, password);
 		ResponseStructure<Merchant> structure = new ResponseStructure<>();
+		Optional<Merchant> recMerchant = merchantDao.verifyMerchant(email, password);
 		if (recMerchant.isPresent()) {
-			structure.setMessage("Verification Succesfull");
-			structure.setBody(recMerchant.get());
+			Merchant merchant = recMerchant.get();
+			if (merchant.getStatus().equals(AccountStatus.IN_ACTIVE.toString())) {
+				throw new IllegalStateException("Account is Not Activated");
+			}
+			structure.setBody(merchant);
+			structure.setMessage("Merchant Found");
 			structure.setStatusCode(HttpStatus.OK.value());
 			return new ResponseEntity<ResponseStructure<Merchant>>(structure, HttpStatus.OK);
 		}
-		throw new InvalidCredentialsException("invalid email or password");
+		throw new MerchantNotFoundException("Invalid Email Id or password");
 	}
+	
 	
 	public ResponseEntity<ResponseStructure<String>> activate (String token){
 		Optional<Merchant> recMerchant = merchantDao.findByToken(token);

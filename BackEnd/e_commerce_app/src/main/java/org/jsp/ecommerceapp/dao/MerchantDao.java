@@ -41,8 +41,8 @@ public class MerchantDao {
 		return merchantRepository.verify(phone, password);
 	}
 	
-	public Optional<Merchant> verify(String email, String password) {
-		return merchantRepository.verify(email, password);
+	public Optional<Merchant> verifyMerchant(String email, String password) {
+		return merchantRepository.findByEmailAndPassword(email, password);
 	}
 	
 	public Optional<Merchant> findByToken(String token){
