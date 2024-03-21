@@ -28,7 +28,7 @@ public class EcommerceAppExceptionHandler extends ResponseEntityExceptionHandler
 	}
 	
 	@ExceptionHandler(MerchantNotFoundException.class)
-	public ResponseEntity<ResponseStructure<String>> handlerMNFE(ProductNotFoundException exception) {
+	public ResponseEntity<ResponseStructure<String>> handlerMNFE(MerchantNotFoundException exception) {
 		ResponseStructure<String> structure = new ResponseStructure<>();
 		structure.setBody("cannot find merchant");
 		structure.setMessage(exception.getMessage());
@@ -40,6 +40,23 @@ public class EcommerceAppExceptionHandler extends ResponseEntityExceptionHandler
 	public ResponseEntity<ResponseStructure<String>> handlerPNFE(ProductNotFoundException exception) {
 		ResponseStructure<String> structure = new ResponseStructure<>();
 		structure.setBody("cannot find Product");
+		structure.setMessage(exception.getMessage());
+		structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(IllegalStateException.class)
+	public ResponseEntity<ResponseStructure<String>> handleISE(IllegalStateException exception) {
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		structure.setBody("Activate Your Account to SignIn");
+		structure.setMessage(exception.getMessage());
+		structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> handleUNFE(UserNotFoundException exception) {
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		structure.setBody("User Not Found");
 		structure.setMessage(exception.getMessage());
 		structure.setStatusCode(HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);

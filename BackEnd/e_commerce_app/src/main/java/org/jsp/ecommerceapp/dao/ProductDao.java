@@ -38,4 +38,8 @@ public class ProductDao {
 		return productRepository.findByCategory(category);
 	}
 	
+	public List<Product> findByName(String name) {
+		return productRepository.findByCategory(name);
+	}
+	
 }

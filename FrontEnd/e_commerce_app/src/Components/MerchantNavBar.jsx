@@ -11,6 +11,7 @@ const MerchantNavBar = () => {
       </div>
       <div className="option">
         <Link to="/merchanthomepagee/productview">View Products</Link>
+        <Link to="/merchanthomepagee/addproduts">Add Products</Link>
       </div>
       <div>
       <Dropdown>
