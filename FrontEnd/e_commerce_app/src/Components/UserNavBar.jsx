@@ -2,7 +2,7 @@ import React from 'react'
 import "../Styles/UserNavBar.css"
 import Dropdown from 'react-bootstrap/Dropdown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const UserNavBar = () => {
   return (
@@ -11,7 +11,7 @@ const UserNavBar = () => {
       <h1>UserHomePage</h1>
     </div>
     <div className="option">
-      <Link to="/merchanthomepagee/productview">View Products</Link>
+      {/* <Link to="/merchanthomepagee/productview">View Products</Link> */}
     </div>
     <div>
     <Dropdown>

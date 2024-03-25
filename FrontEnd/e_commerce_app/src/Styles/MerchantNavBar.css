@@ -1,26 +1,39 @@
-.navbar {
+.merchantnavbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100px;
-  background-color:  khaki;
+  background-color:   rgba(0, 0, 0, 0.689);
   padding: 0px, 50px;
 }
 
-.navbar h1{
-  color: brown;
+.merchantnavbar h1{
+  color: gold;
 }
 
-.navbar span{
+.merchantnavbar span{
   color: beige;
 }
 
-.navbar a{
-  color: black;
+.merchantnavbar a{
+  color: white;
   text-decoration: none;
 }
 
-.option a {
+.merchantnavbar a {
     margin: 0px 30px;
+}
+
+/* .merchantnavbar .dropitem{
+  color: ; 
+} */
+
+.merchantnavbar .dropitem:hover{
+  width: auto; 
+}
+
+.merchantnavbar .dropmenu{
+  background-color: gray;
+
 }
 

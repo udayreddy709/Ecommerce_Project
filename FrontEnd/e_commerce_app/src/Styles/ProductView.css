@@ -1,5 +1,5 @@
 .productview{
-  height: 400px;
+  height: 300px;
   width: 280px;
 }
 .productview img{
@@ -15,6 +15,7 @@ height: 60px;
  grid-template-columns: 320px 320px 320px;
  grid-template-rows: 500px 500px;
  justify-content: space-around;
+ background-color: lightblue;
  
 }
 #desc{
@@ -33,9 +34,14 @@ height: 60px;
   color: white;
   padding: 0px 10px;
   border-radius: 10px;
-  top: -90px;
+  /* top: -60px; */
   background-color: mediumblue;
 }
 .productview img:hover{
   transform: rotateY(180deg);
+  cursor: pointer;
+}
+
+.productview .editicon,.deleteicon:hover{
+  cursor: pointer;
 }

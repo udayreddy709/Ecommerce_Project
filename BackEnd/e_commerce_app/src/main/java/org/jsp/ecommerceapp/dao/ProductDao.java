@@ -42,4 +42,8 @@ public class ProductDao {
 		return productRepository.findByCategory(name);
 	}
 	
+	public void delete(int id) {
+		productRepository.deleteById(id);
+	}
+	
 }

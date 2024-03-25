@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../Styles/ProductView.css'
-import { useNavigate } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-function ProductView() {
+function UserProductView() {
   let [item, setitem] = useState([])
   let admin = JSON.parse(localStorage.getItem("Merchant"))
-  let navigate = useNavigate()
   
   
   useEffect(() => {
@@ -44,22 +40,6 @@ function ProductView() {
         console.log(err);
       })
   }
-
-  let removeData = (name,id) =>{
-    axios.delete(`http://localhost:8080/products/${id}`)
-    .then((res) => {
-      console.log(res);
-      alert(`${name} removed successfully`)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  let editData = (id) =>{
-    navigate(`/merchanthomepagee/updateproduct/${id}`)
-  }
-
   return (
     <div className='disp'>
       {item.map((x) => {
@@ -88,10 +68,6 @@ function ProductView() {
                 <br />
                 <span id='desc'>{x.description}</span>
               </div>
-              <div className="icons">
-                <EditIcon className='editicon' onClick={()=>{editData(x.id)}}/>
-                <DeleteForeverIcon className='deleteicon' onClick={()=>{removeData(x.name,x.id)}} />
-              </div>
             </div>
           </div>
 
@@ -101,4 +77,4 @@ function ProductView() {
 
   )
 }
-export default ProductView
+export default UserProductView

@@ -3,12 +3,12 @@
   justify-content: space-around;
   align-items: center;
   height: 100px;
-  background-color:  cadetblue;
+  background-color:  gold;
   padding: 0px, 50px;
 }
 
 .navbar h1{
-  color: brown;
+  color: black;
 }
 
 .navbar span{

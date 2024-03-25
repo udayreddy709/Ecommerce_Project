@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/users")
@@ -29,9 +30,8 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<User> saveUser(@RequestBody User user) {
-		return userService.saveUser(user);
+	public ResponseEntity<ResponseStructure<User>> saveUser(@RequestBody User user, HttpServletRequest request) {
+		return userService.saveUser(user, request);
 	}
 
 	@PutMapping
@@ -56,9 +56,9 @@ public class UserController {
 	}
 
 	@PostMapping("/verify-by-phone")
-	public ResponseEntity<ResponseStructure<User>> verifyMerchant(@RequestParam long phone,
+	public ResponseEntity<ResponseStructure<User>> verifyUser(@RequestParam long phone,
 			@RequestParam String password) {
-		return userService.verifyMerchant(phone, password);
+		return userService.verifyUser(phone, password);
 	}
 
 	@GetMapping("/find-by-name/{name}")
@@ -67,8 +67,13 @@ public class UserController {
 	}
 
 	@PostMapping("/verify-by-email")
-	public ResponseEntity<ResponseStructure<User>> verifyUser(@RequestParam String email,
-			@RequestParam String password) {
+	public ResponseEntity<ResponseStructure<User>> verifyUser(@RequestParam(name = "email") String email,
+			@RequestParam(name = "password") String password) {
 		return userService.verifyUser(email, password);
+	}
+	
+	@GetMapping("/activate")
+	public ResponseEntity<ResponseStructure<String>> activate(@RequestParam String token) {
+		return userService.activate(token);
 	}
 }
