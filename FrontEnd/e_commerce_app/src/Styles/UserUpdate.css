@@ -5,6 +5,7 @@
   padding: 10px 50px;
   border-radius: 10px;
   font-family: cursive;
+  
 }
 
 .userupdate{
@@ -12,11 +13,14 @@
   align-items: center;
   justify-content: center;
   height: 80vh;
+  
+
 }
 
 .userupdate input,label{
   margin: 10px 0px;
   border: none;
+  
 }
 
 .userupdate input{
